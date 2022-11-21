@@ -13,14 +13,22 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  username  String    @unique
-  password  String
-  type      String // buyer/seller
-  Catalog   Catalog[]
-  Orders    Orders[]
+  id            String          @id @default(uuid())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  username      String          @unique
+  password      String
+  type          String // buyer/seller
+  Catalog       Catalog[]
+  Orders        Orders[]
+  RefreshTokens RefreshTokens[]
+}
+
+model RefreshTokens {
+  id          String @id
+  hashedToken String
+  userId      String
+  user        User   @relation(fields: [userId], references: [id])
 }
 
 model Catalog {
