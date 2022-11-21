@@ -13,7 +13,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
       Catalog: {
         include: {
           sellerId: true,
-          Items: true,
+          Item: true,
         },
       },
     },

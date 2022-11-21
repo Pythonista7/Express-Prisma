@@ -13,5 +13,6 @@ buyerRouter.use(addPrisma);
 // routes
 buyerRouter.get("/list-of-sellers", listSellers);
 buyerRouter.get("/seller-catalog/:seller_id", catalogBySellerId);
+buyerRouter.post("/create-order/:seller_id", () => {});
 
 export default buyerRouter;
