@@ -12,7 +12,7 @@ app.use(cors());
 app.use(json());
 app.use(basicLogger);
 
-app.use(router);
+app.use("/api", router);
 
 app.use(notFound);
 app.use(errHandler);
