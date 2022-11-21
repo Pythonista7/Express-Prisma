@@ -1,12 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { UserType } from "../../utils/enums";
 import * as bcrypt from "bcrypt";
-import { JWTUser } from "../../utils/types";
-import { createHash, randomUUID } from "crypto";
-import { generateTokens } from "../../utils/authUtils";
 
 type requestBody = { username: string; password: string; userType: UserType };
-type responseBody = { accessToken: string; refreshToken: string };
+type responseBody = { message: string };
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -42,35 +39,8 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     });
     if (!op.id) throw new Error("User creation failed.");
 
-    // create user token and refresh token
-    const refreshTokenTrackerId = randomUUID();
-    const payload: JWTUser = {
-      uid: op.id,
-      username: op.username,
-    };
-    const { accessToken, refreshToken } = generateTokens(
-      payload,
-      refreshTokenTrackerId
-    );
-
-    // save refresh token state to db
-    const rft = await req.prisma!.refreshTokens.create({
-      data: {
-        id: refreshTokenTrackerId,
-        userId: op.id,
-        hashedToken: createHash("sha256").update(refreshToken).digest("hex"),
-      },
-    });
-
-    if (!rft.id) throw new Error("Unable to generate user tokens.");
-
-    // send response
-    const tokens: responseBody = {
-      accessToken,
-      refreshToken,
-    };
-
-    res.status(200).send(tokens);
+    const response: responseBody = { message: "User successfully created" };
+    res.status(200).send(response);
   } catch (e) {
     next(e);
   }
