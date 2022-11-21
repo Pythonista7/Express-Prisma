@@ -2,9 +2,10 @@
     "compilerOptions": {
       "sourceMap": true,
       "outDir": "dist",
+      "sourceRoot": "src",
       "strict": true,
       "lib": ["esnext"],
       "esModuleInterop": true,
-      "typeRoots": ["src/types"]
+      "typeRoots": ["./src/types"]
     }
   }
