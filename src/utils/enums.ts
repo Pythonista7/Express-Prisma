@@ -1,6 +1,6 @@
 enum UserType {
-  "Buyer",
-  "Seller",
+  Buyer = "Buyer",
+  Seller = "Seller",
 }
 
 export { UserType };
