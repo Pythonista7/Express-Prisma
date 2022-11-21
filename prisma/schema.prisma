@@ -37,9 +37,9 @@ model Catalog {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name      String
-  seller    String
-  sellerId  User     @relation(fields: [seller], references: [id])
-  Item      Item[]
+  sellerId  String
+  seller    User     @relation(fields: [sellerId], references: [id])
+  Items     Item[]
 }
 
 model Item {

@@ -20,7 +20,10 @@ export default async (req: Request, res: Response, next: NextFunction) => {
   const r = await req.prisma!.orders.createMany({
     data: itemsData,
   });
-  if (!r) next(new Error("Could not place orders."));
+  if (!r) {
+    next(new Error("Could not place orders."));
+    return;
+  }
 
   res.status(200).send("Order Placed.");
 };
